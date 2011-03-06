@@ -6,6 +6,7 @@ class postgresql {
     Debian: { 
       case $lsbdistcodename {
         etch :   { include postgresql::debian::v8-3 }
+        julia:   { include postgresql::debian::v8-4 }
         lenny :  { include postgresql::debian::v8-3 }
         squeeze: { include postgresql::debian::v8-4 }
         default: { fail "postgresql not available for ${operatingsystem}/${lsbdistcodename}"}

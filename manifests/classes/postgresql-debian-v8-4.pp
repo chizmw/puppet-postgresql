@@ -33,7 +33,7 @@ class postgresql::debian::v8-4 inherits postgresql::debian::base {
   }
 
   case $lsbdistcodename {
-    "lenny", "squeeze" : {
+    "julia", "lenny", "squeeze" : {
       package {[
         "libpq-dev",
         "libpq5",
@@ -64,7 +64,7 @@ class postgresql::debian::v8-4 inherits postgresql::debian::base {
       # re-create the cluster in UTF8
       exec {"pg_createcluster in utf8" : 
         command => "pg_dropcluster --stop 8.4 main && pg_createcluster -e UTF8 -d ${data_dir}/8.4/main --start 8.4 main",
-        onlyif => "test \$(su -c \"psql -tA -c 'SELECT count(*)=3 AND min(encoding)=0 AND max(encoding)=0 FROM pg_catalog.pg_database;'\" postgres) = t",
+        onlyif => "test \$(sudo -upostgres psql -tA -c 'SELECT count(*)=3 AND min(encoding)=0 AND max(encoding)=0 FROM pg_catalog.pg_database;' postgres) = t",
         user => root,
         timeout => 60,
       }
