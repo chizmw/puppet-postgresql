@@ -1,0 +1,14 @@
+
+
+## Tips
+
+### Search path errors
+
+If you get errors because you don't have a search path and you're using
+non-absolute paths to executables, add the following to the top of your
+sites.pp
+
+    # http://groups.google.com/group/puppet-users/browse_thread/thread/c60e8ae314ae687b
+    Exec {
+        path => ["/bin", "/sbin", "/usr/bin", "/usr/sbin"],
+    }
